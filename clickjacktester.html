@@ -7,11 +7,12 @@
 <input type="url" value="https://example.com" id="example_input">
 <p>Input a URL, then press submit. If the page renders, it is vulnerable to clickjacking! :)</p>
 
-<button onclick="myFunction()">Submit</button>
+<button onclick="myFunction()">Submit</button>test.com
 
 <script>
-var url = document.getElementById("example_input").value;
+
 function myFunction() {
+var url = document.getElementById("example_input").value;
   document.getElementById("myFrame").src = url;
   alert(url);
 
@@ -20,4 +21,3 @@ function myFunction() {
 
 </body>
 </html>
-
