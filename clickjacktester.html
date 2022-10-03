@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html>
-<body>
+    <head>
+        <title>Clickjack test page</title>
+    </head>
+    <body>
+        <script>
+        function previewFile() {
+        const content = document.getElementById('content');
+        const [file] = document.querySelector('input[type=file]').files;
+        const reader = new FileReader();
 
-<iframe height="500" width="500" id="myFrame" src="https://example.com"></iframe>
-<br>
-<input type="url" value="https://example.com" id="example_input">
-<h3>Input a URL, then press submit. If the page renders, it is vulnerable to clickjacking! :)</h3>
+        reader.addEventListener("load", () => {
+            // this will then display a text file
+            //content.innerText = reader.result;
+            const arr = reader.result.split(/\r?\n/);
+            console.log(arr)
+            var cont_list = '</br>';
+            for (var i = 0; i < arr.length; i++){
+                cont_list += '<h3>' + arr[i] + '</h3>';
+                cont_list +='<iframe src="http://' + arr[i] + '" width="500" height="500"></iframe>'
+            }
+            content.innerHTML=cont_list;
+        }, false);
 
-<button onclick="myFunction()">Submit</button>
+        if (file) {
+            reader.readAsText(file);
+        }
+        }
 
-<script>
+        </script>
 
-function myFunction() {
-var url = document.getElementById("example_input").value;
-  document.getElementById("myFrame").src = url;
+		<h1>If website renders, it is vulnerable to clickjacking</h1>
+		<h2>:)</h2>
+		<h3>Add a list of domains (1 per line), script will append http://
+        <input type="file" onchange="previewFile()" accept=".txt"/><br />
+        <div id="content"></div>
 
-}
-</script>
+        <script>
 
-</body>
+        </script>
+        <!-- If you just want to test a single URL, uncomment below -->
+        <!--<iframe src="URL Goes Here" width="500" height="500"></iframe>-->
+    </body>
 </html>
