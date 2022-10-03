@@ -29,10 +29,23 @@
         }
 
         </script>
+	<br>
+	<input type="url" value="https://example.com" id="example_input">
+	<h3>Input a URL, then press submit. If the page renders, it is vulnerable to clickjacking! :)</h3>
 
-		<h1>If website renders, it is vulnerable to clickjacking</h1>
-		<h2>:)</h2>
-		<h3>Add a list of domains (1 per line), script will append http://
+	<button onclick="myFunction()">Submit</button>
+
+	<iframe height="500" width="500" id="myFrame" src="https://example.com"></iframe>
+	<br>
+	<script>
+
+	function myFunction() {
+	var url = document.getElementById("example_input").value;
+	  document.getElementById("myFrame").src = url;
+
+	}
+	</script>
+	<h3>Or... Add a list of domains (1 per line), script will append http://
         <input type="file" onchange="previewFile()" accept=".txt"/><br />
         <div id="content"></div>
 
